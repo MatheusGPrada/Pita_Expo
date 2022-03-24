@@ -10,16 +10,18 @@ import { isValidPassword, registerUser } from "@features/Register/Utils/utils";
 import { Password } from "../Password/Password";
 import { useNavigation } from "@react-navigation/native";
 import { SnackBar } from "@components/atoms/SnackBar/SnackBar";
-import { SnackBarContainer } from "./styles";
+import { LoadingContainer, SnackBarContainer } from "./styles";
 import { cacheVars, getData } from "@utils/asyncStorage";
+import { Loading } from "@components/atoms/Loading/Loading";
 
 export const SignUp: FC = () => {
   const [disabled, setDisabled] = useState(false);
-  const [snackBarVisible, setSnackBarVisible] = useState(false);
+  const [showSnackBar, setShowSnackBar] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { navigate } = useNavigation();
 
-  const onToggleSnackBar = () => setSnackBarVisible(true);
+  const onToggleSnackBar = () => setShowSnackBar(true);
 
   const buttonStyle = {
     backgroundColor: theme.colors.primary50,
@@ -88,10 +90,13 @@ export const SignUp: FC = () => {
                 setDisabled
               )
             ) {
+              await setLoading(true);
               const result = await registerUser();
               if (JSON.stringify(result).includes('"name":"Error"')) {
+                await setLoading(false);
                 onToggleSnackBar();
               } else {
+                await setLoading(false);
                 navigate("Login");
               }
             }
@@ -100,13 +105,20 @@ export const SignUp: FC = () => {
           previousBtnText={i18n.t("buttonLabels.back")}
           previousBtnTextStyle={buttonTextStyle}
         >
-          <Password setDisabled={setDisabled} />
+          {loading ? (
+            <LoadingContainer>
+              <Loading size={70} />
+            </LoadingContainer>
+          ) : (
+            <Password setDisabled={setDisabled} />
+          )}
+
           <SnackBarContainer>
-            {snackBarVisible && (
+            {showSnackBar && (
               <SnackBar
                 backgroundColor={theme.colors.danger50}
                 message={i18n.t("error.userAlreadyExist")}
-                setVisible={setSnackBarVisible}
+                setShowSnackBar={setShowSnackBar}
               />
             )}
           </SnackBarContainer>

@@ -48,7 +48,7 @@ export const isValidPhoneNumber = async (
   phoneNumber: string,
   setDisabled: Function
 ) => {
-  if (phoneNumber.length === 15) {
+  if (phoneNumber && phoneNumber.length === 15) {
     await setDisabled(false);
     return true;
   }
@@ -76,10 +76,14 @@ export const saveEmailInCache = async (email: string) => {
 
 // PASSWORD
 export const isValidPassword = async (
-  password: string,
+  password: string | number,
   setDisabled: Function
 ) => {
-  if (password.length > 0) {
+  const isValid =
+    typeof password === "number"
+      ? password.toString().length > 0
+      : password.length > 0;
+  if (password && isValid) {
     await setDisabled(false);
     return true;
   }
@@ -105,6 +109,7 @@ export const registerUser = async () => {
     telefone: PhoneNumber,
     userName: Email,
   };
+  console.debug("userInfo", userInfo);
 
   await api
     .post(REGISTER_USER, userInfo, {

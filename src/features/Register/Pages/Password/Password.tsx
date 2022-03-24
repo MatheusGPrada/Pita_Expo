@@ -16,6 +16,7 @@ import {
   savePasswordInCache,
 } from "@features/Register/Utils/utils";
 import { StepsProps } from "../typings";
+import { getAllData } from "@utils/asyncStorage";
 
 export const Password = ({ setDisabled }: StepsProps) => {
   const [visible, setVisible] = useState(false);
@@ -25,7 +26,7 @@ export const Password = ({ setDisabled }: StepsProps) => {
   const onToggleSnackBar = () => setVisible(true);
 
   const validPassword = async () => {
-    cache.set("Password", password);
+    savePasswordInCache(password);
     if (password.length === 0) {
       setError(i18n.t("error.invalidPassword"));
       onToggleSnackBar();
@@ -33,7 +34,12 @@ export const Password = ({ setDisabled }: StepsProps) => {
   };
 
   useEffect(() => {
-    isValidPassword(password, setDisabled);
+    const getCache = async () => {
+      const { Password } = await getAllData();
+      Password ? setPassword(Password) : null;
+      await isValidPassword(Password, setDisabled);
+    };
+    getCache();
   }, [password, setDisabled]);
 
   return (
@@ -50,7 +56,7 @@ export const Password = ({ setDisabled }: StepsProps) => {
           }}
           onChangeText={async (value) => {
             await setPassword(value);
-            await savePasswordInCache(value, cache);
+            await savePasswordInCache(value);
             await isValidPassword(value, setDisabled);
           }}
           style={{ backgroundColor: "white", height: 45 }}
@@ -63,7 +69,7 @@ export const Password = ({ setDisabled }: StepsProps) => {
           <SnackBar
             backgroundColor={theme.colors.danger50}
             message={error}
-            setVisible={setVisible}
+            setShowSnackBar={setVisible}
           />
         )}
       </SnackBarContainer>
