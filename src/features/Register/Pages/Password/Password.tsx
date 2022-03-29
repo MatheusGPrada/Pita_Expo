@@ -27,7 +27,7 @@ export const Password = ({ setDisabled }: StepsProps) => {
 
   const validPassword = async () => {
     savePasswordInCache(password);
-    if (password.length === 0) {
+    if (password && password.length === 0) {
       setError(i18n.t("error.invalidPassword"));
       onToggleSnackBar();
     }

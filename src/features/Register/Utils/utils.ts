@@ -82,7 +82,7 @@ export const isValidPassword = async (
   const isValid =
     typeof password === "number"
       ? password.toString().length > 0
-      : password.length > 0;
+      : password?.length > 0;
   if (password && isValid) {
     await setDisabled(false);
     return true;
@@ -109,7 +109,6 @@ export const registerUser = async () => {
     telefone: PhoneNumber,
     userName: Email,
   };
-  console.debug("userInfo", userInfo);
 
   await api
     .post(REGISTER_USER, userInfo, {
@@ -127,3 +126,6 @@ export const registerUser = async () => {
 
   return result;
 };
+
+export const getResponsiveSizeInPx = (value: number) =>
+  value.toString().concat("px");

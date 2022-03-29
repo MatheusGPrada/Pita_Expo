@@ -1,6 +1,7 @@
 import { theme } from "@theme";
 import styled from "styled-components/native";
 import { Dimensions } from "react-native";
+import { getResponsiveSizeInPx } from "@features/Register/Utils/utils";
 
 const { height } = Dimensions.get("window");
 
@@ -12,5 +13,5 @@ export const SnackBarContainer = styled.View`
 
 export const LoadingContainer = styled.View`
   align-items: center;
-  margin-top: ${height / 3};
+  margin-top: ${getResponsiveSizeInPx(height / 3)};
 `;
