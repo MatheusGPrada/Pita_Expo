@@ -37,17 +37,8 @@ export const storeData = async (cacheName: string, value: any) => {
   }
 };
 
-export const getData = async (cacheName: string) => {
-  try {
-    const value = await AsyncStorage.getItem(cacheName);
-    if (value && JSON.parse(value)) {
-      return JSON.parse(value);
-    }
-    return value;
-  } catch (e) {
-    console.warn("Error on get cache: ", e);
-  }
-};
+export const getData = async (cacheName: string) =>
+  await AsyncStorage.getItem(cacheName);
 
 export const getAllData = async () => {
   try {

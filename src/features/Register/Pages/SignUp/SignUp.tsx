@@ -11,11 +11,11 @@ import { Password } from "../Password/Password";
 import { useNavigation } from "@react-navigation/native";
 import { SnackBar } from "@components/atoms/SnackBar/SnackBar";
 import { LoadingContainer, SnackBarContainer } from "./styles";
-import { cacheVars, getData } from "@utils/asyncStorage";
 import { Loading } from "@components/atoms/Loading/Loading";
+import { cacheVars, getData } from "@utils/asyncStorage";
 
 export const SignUp: FC = () => {
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
   const [showSnackBar, setShowSnackBar] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -69,6 +69,7 @@ export const SignUp: FC = () => {
         <ProgressStep
           finishBtnText={i18n.t("buttonLabels.finish")}
           label={i18n.t("steps.email")}
+          nextBtnDisabled={disabled}
           nextBtnStyle={buttonStyle}
           nextBtnText={i18n.t("buttonLabels.next")}
           nextBtnTextStyle={buttonTextStyle}
@@ -84,19 +85,14 @@ export const SignUp: FC = () => {
           nextBtnStyle={buttonStyle}
           nextBtnTextStyle={buttonTextStyle}
           onSubmit={async () => {
-            if (
-              await isValidPassword(
-                await getData(cacheVars.password),
-                setDisabled
-              )
-            ) {
-              await setLoading(true);
+            if (await isValidPassword(await getData(cacheVars.password))) {
+              setLoading(true);
               const result = await registerUser();
               if (JSON.stringify(result).includes('"name":"Error"')) {
-                await setLoading(false);
+                setLoading(false);
                 onToggleSnackBar();
               } else {
-                await setLoading(false);
+                setLoading(false);
                 navigate("Login");
               }
             }
@@ -110,7 +106,7 @@ export const SignUp: FC = () => {
               <Loading size={70} />
             </LoadingContainer>
           ) : (
-            <Password setDisabled={setDisabled} />
+            <Password />
           )}
 
           <SnackBarContainer>

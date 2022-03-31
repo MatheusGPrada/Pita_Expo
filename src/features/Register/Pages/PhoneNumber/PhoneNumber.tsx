@@ -29,8 +29,8 @@ export const PhoneNumber = ({ setDisabled }: StepsProps) => {
   const validPhone = async () => {
     await savePhoneNumberInCache(phoneNumber);
     if (!(await isValidPhoneNumber(phoneNumber, setDisabled))) {
-      await setError(i18n.t("error.invalidPhoneNumber"));
-      await onToggleSnackBar();
+      setError(i18n.t("error.invalidPhoneNumber"));
+      onToggleSnackBar();
     }
   };
 
@@ -40,6 +40,7 @@ export const PhoneNumber = ({ setDisabled }: StepsProps) => {
       PhoneNumber ? setPhoneNumber(PhoneNumber) : null;
       await isValidPhoneNumber(PhoneNumber, setDisabled);
     };
+    setDisabled(true);
     getCache();
   }, []);
 
@@ -53,11 +54,7 @@ export const PhoneNumber = ({ setDisabled }: StepsProps) => {
         <InputText>{i18n.t("labels.cellphone")}</InputText>
         <TextInput
           onBlur={() => validPhone()}
-          onChangeText={async (value) => {
-            await setPhoneNumber(value);
-            await savePhoneNumberInCache(value);
-            await isValidPhoneNumber(phoneNumber, setDisabled);
-          }}
+          onChangeText={setPhoneNumber}
           render={(props) => (
             <TextInputMask
               {...props}

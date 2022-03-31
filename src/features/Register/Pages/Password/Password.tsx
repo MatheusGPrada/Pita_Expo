@@ -15,10 +15,9 @@ import {
   isValidPassword,
   savePasswordInCache,
 } from "@features/Register/Utils/utils";
-import { StepsProps } from "../typings";
 import { getAllData } from "@utils/asyncStorage";
 
-export const Password = ({ setDisabled }: StepsProps) => {
+export const Password = () => {
   const [visible, setVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -27,7 +26,7 @@ export const Password = ({ setDisabled }: StepsProps) => {
 
   const validPassword = async () => {
     savePasswordInCache(password);
-    if (password && password.length === 0) {
+    if (!(await isValidPassword(password))) {
       setError(i18n.t("error.invalidPassword"));
       onToggleSnackBar();
     }
@@ -37,10 +36,10 @@ export const Password = ({ setDisabled }: StepsProps) => {
     const getCache = async () => {
       const { Password } = await getAllData();
       Password ? setPassword(Password) : null;
-      await isValidPassword(Password, setDisabled);
+      await isValidPassword(Password);
     };
     getCache();
-  }, [password, setDisabled]);
+  }, []);
 
   return (
     <>
@@ -54,11 +53,7 @@ export const Password = ({ setDisabled }: StepsProps) => {
           onBlur={async () => {
             await validPassword();
           }}
-          onChangeText={async (value) => {
-            await setPassword(value);
-            await savePasswordInCache(value);
-            await isValidPassword(value, setDisabled);
-          }}
+          onChangeText={setPassword}
           style={{ backgroundColor: "white", height: 45 }}
           theme={{ colors: { primary: "black" } }}
           value={password}

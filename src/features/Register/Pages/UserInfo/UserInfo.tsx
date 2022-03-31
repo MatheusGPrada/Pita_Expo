@@ -15,8 +15,9 @@ import { SnackBar } from "@components/atoms/SnackBar/SnackBar";
 import { i18n } from "@i18n";
 import { theme } from "@theme";
 import {
-  saveUserInfoInCache,
-  isValidUserInfo,
+  saveNameInCache,
+  saveCPFInCache,
+  saveBirthDateInCache,
 } from "@features/Register/Utils/utils";
 import { StepsProps } from "../typings";
 import { getAllData } from "@utils/asyncStorage";
@@ -30,16 +31,14 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
   const [snackBarMessageError, setSnackBarMessageError] = useState("");
   const onToggleSnackBar = () => setShowSnackBar(true);
 
-  const validData = async (
-    validFunction: Function,
-    value: string,
-    errorMessage: string
-  ) => {
-    await saveUserInfoInCache(name, cpf, birthDate);
-    await isValidUserInfo(name, cpf, birthDate, setDisabled);
-    if (validFunction(value)) {
-      setSnackBarMessageError(errorMessage);
-      onToggleSnackBar();
+  const checkInfoIsValid = () => {
+    if (
+      !isEmpty(name) &&
+      !isEmpty(cpf) &&
+      isValidCPF(cpf) &&
+      validDate(birthDate)
+    ) {
+      setDisabled(false);
     }
   };
 
@@ -49,7 +48,7 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
       BirthDate ? setBirthDate(BirthDate) : null;
       CPF ? setCpf(CPF) : null;
       Name ? setName(Name) : null;
-      await isValidUserInfo(Name, CPF, BirthDate, setDisabled);
+      checkInfoIsValid();
     };
     getCache();
   }, []);
@@ -65,13 +64,14 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
           <InputText>{i18n.t("labels.name")}</InputText>
           <TextInput
             onBlur={async () => {
-              await validData(
-                (value: string) => {
-                  !isEmpty(value);
-                },
-                name,
-                i18n.t("error.emptyName")
-              );
+              if (!isEmpty(name)) {
+                await saveNameInCache(name);
+                checkInfoIsValid();
+                return;
+              }
+              setDisabled(true);
+              setSnackBarMessageError(i18n.t("error.emptyName"));
+              onToggleSnackBar();
             }}
             onChangeText={setName}
             style={{ backgroundColor: "white", height: 45, marginBottom: 20 }}
@@ -81,13 +81,14 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
           <InputText>{i18n.t("labels.cpf")}</InputText>
           <TextInput
             onBlur={async () => {
-              await validData(
-                (value: string) => {
-                  !isEmpty(value) && !isValidCPF(value);
-                },
-                cpf,
-                i18n.t("error.invalidCPF")
-              );
+              if (!isEmpty(cpf) && isValidCPF(cpf)) {
+                await saveCPFInCache(cpf);
+                checkInfoIsValid();
+                return;
+              }
+              setDisabled(true);
+              setSnackBarMessageError(i18n.t("error.invalidCPF"));
+              onToggleSnackBar();
             }}
             onChangeText={setCpf}
             render={(props) => (
@@ -100,13 +101,14 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
           <InputText>{i18n.t("labels.birthDate")}</InputText>
           <TextInput
             onBlur={async () => {
-              await validData(
-                (value: string) => {
-                  !validDate(value);
-                },
-                birthDate,
-                i18n.t("error.invalidDate")
-              );
+              if (validDate(birthDate)) {
+                await saveBirthDateInCache(birthDate);
+                checkInfoIsValid();
+                return;
+              }
+              setDisabled(true);
+              setSnackBarMessageError(i18n.t("error.invalidDate"));
+              onToggleSnackBar();
             }}
             onChangeText={setBirthDate}
             render={(props) => (

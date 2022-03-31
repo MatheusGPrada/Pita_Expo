@@ -22,9 +22,9 @@ export const Email = ({ setDisabled }: StepsProps) => {
 
   const onToggleSnackBar = () => setShowSnackBar(true);
 
-  const validEmail = () => {
-    saveEmailInCache(email);
-    if (!isValidEmail(email, setDisabled)) {
+  const validEmail = async () => {
+    await saveEmailInCache(email);
+    if (!(await isValidEmail(email, setDisabled))) {
       setError(i18n.t("error.invalidEmail"));
       onToggleSnackBar();
     }
@@ -36,8 +36,9 @@ export const Email = ({ setDisabled }: StepsProps) => {
       Email ? setEmail(Email) : null;
       await isValidEmail(Email, setDisabled);
     };
+    setDisabled(true);
     getCache();
-  }, [email, setDisabled]);
+  }, []);
 
   return (
     <>
@@ -52,11 +53,7 @@ export const Email = ({ setDisabled }: StepsProps) => {
           onBlur={() => {
             validEmail();
           }}
-          onChangeText={async (value) => {
-            await setEmail(value);
-            await saveEmailInCache(value);
-            await isValidEmail(value, setDisabled);
-          }}
+          onChangeText={setEmail}
           style={{ backgroundColor: "white", height: 45 }}
           theme={{ colors: { primary: "black" } }}
           value={email}
