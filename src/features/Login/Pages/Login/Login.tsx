@@ -8,12 +8,11 @@ import {
   SnackBarContainer,
 } from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { TextInput as TextInputType } from "react-native";
+import { TextInput as TextInputType, KeyboardAvoidingView } from "react-native";
 import {
   ButtonContainer,
   InputContainer,
 } from "@components/styledComponents/InputContainer/InputContainer";
-import { ForgotPassword } from "@components/styledComponents/ForgottPassword/ForgottPassword";
 import { Button } from "@components/atoms/Button/Button";
 import { i18n } from "@i18n";
 import { HOME_STACK } from "@routes/Contants";
@@ -85,73 +84,75 @@ export const Login: FC = () => {
 
   return (
     <DarkTemplate>
-      <ImageContainer>
-        <Image
-          resizeMode="contain"
-          source={require("../../../../assets/images/logo.png")}
-        />
-      </ImageContainer>
-      <ContentContainer>
-        <InputContainer>
-          <TextInput
-            onChangeText={setUser}
-            onFocus={() => cleanError()}
-            onSubmitEditing={() => passwordInputRef.current.focus()}
-            placeholder={i18n.t("labels.user")}
-            ref={userInputRef}
-            style={{ backgroundColor: "white", height: 45 }}
-            theme={{ colors: { primary: "black" } }}
-            value={user}
+      <KeyboardAvoidingView behavior={"position"} style={{ flex: 1 }}>
+        <ImageContainer>
+          <Image
+            resizeMode="contain"
+            source={require("../../../../assets/images/logo.png")}
           />
-        </InputContainer>
-        <InputContainer>
-          <TextInput
-            onChangeText={setPassword}
-            onFocus={() => cleanError()}
-            onSubmitEditing={() => authenticate()}
-            placeholder={i18n.t("labels.password")}
-            ref={passwordInputRef}
-            right={
-              password ? (
-                <TextInput.Icon
-                  name={() =>
-                    showPassword ? (
-                      <Icon color="black" name="eye" size={36} />
-                    ) : (
-                      <Icon color="black" name="eye-off" size={36} />
-                    )
-                  }
-                  onPress={() => setShowPassword(!showPassword)}
-                />
-              ) : (
-                ""
-              )
-            }
-            secureTextEntry={showPassword}
-            style={{ backgroundColor: "white", height: 45 }}
-            theme={{ colors: { primary: "black" } }}
-            value={password}
+        </ImageContainer>
+        <ContentContainer>
+          <InputContainer>
+            <TextInput
+              onChangeText={setUser}
+              onFocus={() => cleanError()}
+              onSubmitEditing={() => passwordInputRef.current.focus()}
+              placeholder={i18n.t("labels.user")}
+              ref={userInputRef}
+              style={{ backgroundColor: "white", height: 45 }}
+              theme={{ colors: { primary: "black" } }}
+              value={user}
+            />
+          </InputContainer>
+          <InputContainer>
+            <TextInput
+              onChangeText={setPassword}
+              onFocus={() => cleanError()}
+              onSubmitEditing={() => authenticate()}
+              placeholder={i18n.t("labels.password")}
+              ref={passwordInputRef}
+              right={
+                password ? (
+                  <TextInput.Icon
+                    name={() =>
+                      showPassword ? (
+                        <Icon color="black" name="eye" size={36} />
+                      ) : (
+                        <Icon color="black" name="eye-off" size={36} />
+                      )
+                    }
+                    onPress={() => setShowPassword(!showPassword)}
+                  />
+                ) : (
+                  ""
+                )
+              }
+              secureTextEntry={showPassword}
+              style={{ backgroundColor: "white", height: 45 }}
+              theme={{ colors: { primary: "black" } }}
+              value={password}
+            />
+          </InputContainer>
+        </ContentContainer>
+        <SnackBarContainer>
+          {visible && (
+            <SnackBar
+              backgroundColor={theme.colors.danger50}
+              message={error}
+              setShowSnackBar={setVisible}
+            />
+          )}
+        </SnackBarContainer>
+        <ButtonContainer>
+          <Button
+            label={i18n.t("buttonLabels.login")}
+            labelSize="large"
+            loading={loading}
+            onPress={() => authenticate()}
+            useButtonContainer={true}
           />
-        </InputContainer>
-      </ContentContainer>
-      <SnackBarContainer>
-        {visible && (
-          <SnackBar
-            backgroundColor={theme.colors.danger50}
-            message={error}
-            setShowSnackBar={setVisible}
-          />
-        )}
-      </SnackBarContainer>
-      <ButtonContainer>
-        <Button
-          label={i18n.t("buttonLabels.login")}
-          labelSize="large"
-          loading={loading}
-          onPress={() => authenticate()}
-          useButtonContainer={true}
-        />
-      </ButtonContainer>
+        </ButtonContainer>
+      </KeyboardAvoidingView>
     </DarkTemplate>
   );
 };
