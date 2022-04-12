@@ -3,14 +3,11 @@ import {
   ServiceName,
   AttendanceContainer,
   AttendanceHeader,
-  Day,
-  Time,
+  AttendanceDay,
   LottieContainer,
   Title,
   ButtonContainer,
-  IconContainer,
   CardContent,
-  SeeAllButtonContainer,
   ServicePrice,
   ServiceContainer,
   LoadingContainer,
@@ -19,10 +16,9 @@ import {
   FullColor,
   HeaderContainer,
   AttendancesCard,
-  ScheduleContainer,
   Subtitle,
+  ScrollView,
 } from "./styles";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import { i18n } from "@i18n";
 import { Button } from "@components/atoms/Button/Button";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -33,14 +29,14 @@ import { Loading } from "@components/atoms/Loading/Loading";
 import {
   formatedDateToSchedule,
   getActualDate,
+  sortAttendances,
 } from "@features/Home/Utils/utils";
 import { Attendance, Service } from "./typings";
 import { Modal, Portal, Provider } from "react-native-paper";
 import { theme } from "@theme";
 import { ModalSubtitle, ModalTitle, ButtonContent } from "../SeeAll/styles";
 import LottieView from "lottie-react-native";
-
-AntDesign.loadFont();
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export const Schedule: FC = () => {
   const { params } = useRoute();
@@ -61,10 +57,10 @@ export const Schedule: FC = () => {
           "Content-Type": "application/json",
         },
       })
-      .then((response) => {
+      .then(() => {
         setLoading(false);
       })
-      .catch((requestError) => {
+      .catch(() => {
         setLoading(false);
       });
     setShowModal(false);
@@ -129,109 +125,110 @@ export const Schedule: FC = () => {
                 source={require("../../../../assets/images/logo.png")}
               />
             </HeaderContainer>
-
             <AttendancesCard>
-              {attendances.length === 0 ? (
-                <LottieContainer>
-                  <LottieView
-                    style={{
-                      width: 200,
-                      height: 350,
-                    }}
-                    loop
-                    autoPlay
-                    source={require("../../../../assets/lotties/sad.json")}
-                  />
-                  <Subtitle>
-                    {i18n.t("subtitle.didntHaveAnAppointment")}
-                  </Subtitle>
-                </LottieContainer>
-              ) : (
-                attendances
-                  .sort(
-                    (a: string, b: string) =>
-                      new Date(formatedDateToSchedule(b.dataAgendamento)) -
-                      new Date(formatedDateToSchedule(a.dataAgendamento))
-                  )
-                  .map(
-                    (
-                      {
-                        dataAgendamento,
-                        horario,
-                        servico,
-                        idAgendamento,
-                      }: Attendance,
-                      index: number
-                    ) => {
-                      const formatedDate =
-                        formatedDateToSchedule(dataAgendamento);
-                      const day = new Date(formatedDate).getDate().toString();
-                      const month = new Date(formatedDate)
-                        .getMonth()
-                        .toString();
-                      const year = new Date(formatedDate)
-                        .getFullYear()
-                        .toString();
-                      const endTime = horario.substr(6, 5);
-                      const endHour = parseInt(endTime.substr(0, 2), 10);
-                      const endMinute = parseInt(endTime.substr(3, 2), 10);
-                      const statusAgendamento = isBefore(
-                        new Date(
-                          Date.UTC(
-                            parseInt(year, 10),
-                            parseInt(month, 10),
-                            parseInt(day, 10),
-                            endHour,
-                            endMinute
-                          )
-                        ),
-                        getActualDate()
-                      );
+              <ScrollView>
+                {attendances.length === 0 ? (
+                  <LottieContainer>
+                    <LottieView
+                      style={{
+                        width: 200,
+                        height: 350,
+                      }}
+                      loop
+                      autoPlay
+                      source={require("../../../../assets/lotties/sad.json")}
+                    />
+                    <Subtitle>
+                      {i18n.t("subtitle.didntHaveAnAppointment")}
+                    </Subtitle>
+                  </LottieContainer>
+                ) : (
+                  attendances
+                    .sort((a: string, b: string) => sortAttendances(a, b))
+                    .map(
+                      (
+                        {
+                          dataAgendamento,
+                          horario,
+                          servico,
+                          idAgendamento,
+                        }: Attendance,
+                        index: number
+                      ) => {
+                        const formatedDate = new Date(
+                          dataAgendamento
+                            .split("T")[0]
+                            .concat(
+                              "T",
+                              (parseInt(horario.substr(6, 2)) - 3).toString()
+                                .length === 1
+                                ? `0${(
+                                    parseInt(horario.substr(6, 2)) - 3
+                                  ).toString()}`
+                                : (
+                                    parseInt(horario.substr(6, 2)) - 3
+                                  ).toString(),
+                              ":",
+                              horario.substr(9, 2),
+                              ":",
+                              "00"
+                            )
+                        );
+                        const attendanceIsAvailable = isBefore(
+                          getActualDate(),
+                          formatedDate
+                        );
 
-                      return (
-                        <AttendanceContainer
-                          key={index}
-                          status={statusAgendamento}
-                        >
-                          <IconContainer>
-                            {statusAgendamento ? (
-                              <AntDesign color="black" name="check" size={50} />
-                            ) : (
-                              <AntDesign
-                                color="black"
-                                name="calendar"
-                                size={50}
-                              />
-                            )}
-                          </IconContainer>
-                          <CardContent>
-                            <AttendanceHeader>
-                              <Day>{dataAgendamento}</Day>
-                              <Time>{horario}</Time>
-                              <AntDesign
-                                color="red"
-                                name="delete"
-                                onPress={() => {
-                                  setSelectedAttendace(idAgendamento);
-                                  setShowModal(true);
-                                }}
-                                size={20}
-                              />
-                            </AttendanceHeader>
-                            {servico.map(
-                              ({ nomeServico, precoServico, id }: Service) => (
-                                <ServiceContainer key={id}>
-                                  <ServicePrice>{`R$ ${precoServico}.00`}</ServicePrice>
-                                  <ServiceName>{nomeServico}</ServiceName>
-                                </ServiceContainer>
-                              )
-                            )}
-                          </CardContent>
-                        </AttendanceContainer>
-                      );
-                    }
-                  )
-              )}
+                        return (
+                          <AttendanceContainer
+                            key={index}
+                            isAvailable={attendanceIsAvailable}
+                          >
+                            <CardContent>
+                              <AttendanceHeader>
+                                <AttendanceDay>
+                                  {formatedDateToSchedule(
+                                    dataAgendamento,
+                                    horario
+                                  )}
+                                </AttendanceDay>
+
+                                <TouchableOpacity
+                                  onPress={() => {
+                                    setSelectedAttendace(idAgendamento);
+                                    setShowModal(true);
+                                  }}
+                                >
+                                  <LottieView
+                                    style={{
+                                      width: 30,
+                                      height: 30,
+                                    }}
+                                    loop
+                                    autoPlay
+                                    source={require("../../../../assets/lotties/trash.json")}
+                                  />
+                                </TouchableOpacity>
+                              </AttendanceHeader>
+                              {servico.map(
+                                ({
+                                  nomeServico,
+                                  precoServico,
+                                  id,
+                                }: Service) => (
+                                  <ServiceContainer key={id}>
+                                    <ServiceName>{nomeServico}</ServiceName>
+                                    <ServicePrice>{`R$ ${precoServico}.00`}</ServicePrice>
+                                  </ServiceContainer>
+                                )
+                              )}
+                            </CardContent>
+                          </AttendanceContainer>
+                        );
+                      }
+                    )
+                )}
+              </ScrollView>
             </AttendancesCard>
             {/* TO DO - ADD THE !ADMIN VALIDATION */}
             <ButtonContainer>

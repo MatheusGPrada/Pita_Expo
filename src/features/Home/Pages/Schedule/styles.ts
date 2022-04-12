@@ -5,13 +5,13 @@ import { AttendanceProps } from "./typings";
 export const AttendanceHeader = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  padding-bottom: ${theme.marginsPx.m16px};
+  padding-bottom: ${theme.marginsPx.m12px};
 `;
 
 export const ServiceContainer = styled.View`
   flex-direction: row;
-  padding-bottom: ${theme.marginsPx.m4px};
-  padding-left: ${theme.marginsPx.m16px};
+  padding: 0 ${theme.marginsPx.m16px} ${theme.marginsPx.m4px};
+  justify-content: space-between;
 `;
 
 export const ServiceName = styled.Text`
@@ -19,7 +19,6 @@ export const ServiceName = styled.Text`
   font-family: ${theme.fonts.montserratRegular};
   font-size: ${theme.fontSize.large};
   align-self: flex-start;
-  padding-left: ${theme.marginsPx.m16px};
 `;
 
 export const ServicePrice = styled.Text`
@@ -29,18 +28,11 @@ export const ServicePrice = styled.Text`
   align-self: flex-start;
 `;
 
-export const Day = styled.Text`
-  color: #000000;
-  font-family: ${theme.fonts.montserratRegular};
+export const AttendanceDay = styled.Text`
+  color: ${theme.colors.black100};
+  font-family: ${theme.fonts.montserratSemiBold};
   font-size: ${theme.fontSize.large};
-  padding-left: ${theme.marginsPx.m16px};
-`;
-
-export const Time = styled.Text`
-  color: #000000;
-  font-family: ${theme.fonts.montserratRegular};
-  font-size: ${theme.fontSize.large};
-  padding-right: ${theme.marginsPx.m16px};
+  padding: ${theme.marginsPx.m12px} ${theme.marginsPx.m16px} 0;
 `;
 
 export const IconContainer = styled.View`
@@ -49,12 +41,13 @@ export const IconContainer = styled.View`
 `;
 
 export const AttendanceContainer = styled.View<AttendanceProps>`
-  background-color: ${({ status }) => (status ? `#e3d0d8` : `#758bfd`)};
-  border-radius: 30px;
-  margin-horizontal: ${theme.marginsPx.m16px};
+  background-color: ${({ isAvailable }) =>
+    isAvailable ? `#ffffff` : `#6c757d`};
+  border-radius: 10px;
+  margin: ${theme.marginsPx.m20px} ${theme.marginsPx.m16px} 0;
   flex-direction: row;
-  margin-top: ${theme.marginsPx.m20px};
-  padding: ${theme.marginsPx.m20px};
+  padding: ${theme.marginsPx.m8px};
+  min-height: 150px;
 `;
 
 export const SeeAllButtonContainer = styled.View`
@@ -80,6 +73,10 @@ export const ButtonContainer = styled.View`
 `;
 
 export const CardContent = styled.View`
+  flex: 1;
+`;
+
+export const ScrollView = styled.ScrollView`
   flex: 1;
 `;
 
@@ -116,7 +113,7 @@ export const HeaderContainer = styled.View`
 export const AttendancesCard = styled.View`
   flex: 1;
   background-color: #003049;
-  border-radius: 30px;
+  border-radius: 10px;
   margin: ${theme.marginsPx.m16px} ${theme.marginsPx.m16px};
 `;
 
