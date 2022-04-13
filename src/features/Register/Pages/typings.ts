@@ -1,3 +1,3 @@
 export interface StepsProps {
-  setDisabled: Function;
+    setDisabled: Function
 }

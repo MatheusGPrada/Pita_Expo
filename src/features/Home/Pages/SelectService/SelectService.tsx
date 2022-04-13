@@ -58,10 +58,10 @@ export const SelectService: FC = () => {
         }, [token]),
     )
 
-    const isSelected = useCallback((id: number) => selectedServices.findIndex(service => service.id === id) >= 0, [
-        selectedServices,
-        update,
-    ])
+    const isSelected = useCallback(
+        (id: number) => selectedServices.findIndex(service => service.id === id) >= 0,
+        [selectedServices, update],
+    )
 
     const selectService = (id: string, title: string, time: string) => {
         const alreadySelected = selectedServices

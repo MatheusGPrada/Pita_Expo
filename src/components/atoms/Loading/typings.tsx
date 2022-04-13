@@ -1,10 +1,10 @@
-import { TouchableOpacityProps } from 'react-native';
+import { TouchableOpacityProps } from 'react-native'
 
 export interface LoadingProps extends TouchableOpacityProps {
-    size?: number;
-    isBlue?: boolean;
+    size?: number
+    isBlue?: boolean
 }
 
 export interface ImageProps {
-    size: number;
+    size: number
 }
