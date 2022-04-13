@@ -41,7 +41,7 @@ export const IconContainer = styled.View`
 `
 
 export const AttendanceContainer = styled.View<AttendanceProps>`
-    background-color: ${({ isAvailable }) => (isAvailable ? `#ffffff` : `#6c757d`)};
+    background-color: ${({ isAvailable }) => (isAvailable ? `#ffffff` : `#bca5ad`)};
     border-radius: 10px;
     margin: ${theme.marginsPx.m20px} ${theme.marginsPx.m16px} 0;
     flex-direction: row;
