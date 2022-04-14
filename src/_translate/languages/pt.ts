@@ -77,7 +77,8 @@ const messages = {
                 scheduleds: 'Agendados',
                 selectServices: 'Selecione o(s) serviço(s)',
                 selectTheAttendanceDate: 'Selecione o dia para agendar o agendamento',
-                welcome: 'Eae',
+                welcome: 'Bem vindo',
+                whatsUp: 'Eae',
             },
             validation: {
                 invalidCPF: 'CPF inválido!',

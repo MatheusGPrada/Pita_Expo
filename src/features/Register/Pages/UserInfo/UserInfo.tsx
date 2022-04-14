@@ -40,7 +40,7 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
     return (
         <>
             <HeaderContent>
-                <Title>{i18n.t('title.welcome')}</Title>
+                <Title>{i18n.t('title.whatsUp')}</Title>
                 <Subtitle>{i18n.t('subtitle.signUp')}</Subtitle>
             </HeaderContent>
             <ContentContainer>
