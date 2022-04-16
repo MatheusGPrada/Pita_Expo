@@ -115,7 +115,7 @@ export const Schedule: FC = () => {
                 ) : (
                     <ScheduleContent>
                         <HeaderContainer>
-                            <Title>{`${i18n.t('title.welcome')} ${nome}`}</Title>
+                            <Title>{`${i18n.t('title.whatsUp')} ${nome}`}</Title>
                             <Image resizeMode="contain" source={require('../../../../assets/images/logo.png')} />
                         </HeaderContainer>
                         <AttendancesCard>
@@ -214,7 +214,8 @@ export const Schedule: FC = () => {
                             contentContainerStyle={{
                                 backgroundColor: theme.colors.black100,
                                 marginTop: 40,
-                                padding: 20,
+                                marginHorizontal: 10,
+                                padding: 30,
                             }}
                             onDismiss={() => setShowModal(false)}
                             visible={showModal}

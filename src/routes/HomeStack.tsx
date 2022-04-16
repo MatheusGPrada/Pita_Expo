@@ -8,7 +8,6 @@ import { Account } from '@features/Home/Pages/Account/Account'
 import { Schedule } from '@features/Home/Pages/Schedule/Schedule'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { SelectService } from '@features/Home/Pages/SelectService/SelectService'
-import { SeeAll } from '@features/Home/Pages/SeeAll/SeeAll'
 import { ScheduleAttendance } from '@features/Home/Pages/ScheduleAttendance/ScheduleAttendance'
 
 AntDesign.loadFont()
@@ -35,7 +34,6 @@ export const HomeStack = ({ route: { params } }) => (
         <Screen component={Account} initialParams={params} name="Account" options={{ headerShown: false }} />
         <Screen component={Schedule} initialParams={params} name="Schedule" options={{ headerShown: false }} />
         <Screen component={SelectService} name="SelectService" options={{ headerShown: true }} />
-        <Screen component={SeeAll} name="SeeAll" options={{ headerShown: true }} />
         <Screen component={ScheduleAttendance} name="ScheduleAttendance" options={{ headerShown: false }} />
     </Navigator>
 )
