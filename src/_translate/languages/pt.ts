@@ -14,7 +14,6 @@ const messages = {
                 loginWithFacebook: 'Continue com Facebook',
                 logout: 'Sair da conta',
                 next: 'Próximo',
-                seeAllSchedule: 'Ver todos',
                 selectTime: 'Selecionar horário',
             },
             error: {

@@ -18,6 +18,9 @@ import {
     AttendancesCard,
     Subtitle,
     ScrollView,
+    ButtonContent,
+    ModalTitle,
+    ModalSubtitle,
 } from './styles'
 import { i18n } from '@i18n'
 import { Button } from '@components/atoms/Button/Button'
@@ -30,7 +33,6 @@ import { formatedDateToSchedule, getActualDate, sortAttendances } from '@feature
 import { Attendance, Service } from './typings'
 import { Modal, Portal, Provider } from 'react-native-paper'
 import { theme } from '@theme'
-import { ModalSubtitle, ModalTitle, ButtonContent } from '../SeeAll/styles'
 import LottieView from 'lottie-react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 

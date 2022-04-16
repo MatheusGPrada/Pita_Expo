@@ -27,3 +27,25 @@ export const Time = styled.Text`
     padding: ${theme.marginsPx.m8px};
     text-align: center;
 `
+
+export const ButtonContent = styled.View`
+    flex: 1;
+    margin: ${theme.marginsPx.m40px} ${theme.marginsPx.m20px};
+`
+
+export const ModalTitle = styled.Text`
+    color: ${theme.colors.white};
+    font-family: ${theme.fonts.montserratSemiBold};
+    font-size: ${theme.fontSize.xLarge};
+    letter-spacing: ${theme.letterSpacing.ls08};
+    align-self: center;
+`
+
+export const ModalSubtitle = styled.Text`
+    color: ${theme.colors.white};
+    font-family: ${theme.fonts.montserratRegular};
+    font-size: ${theme.fontSize.large};
+    letter-spacing: ${theme.letterSpacing.ls08};
+    align-self: center;
+    margin-top: ${theme.marginsPx.m8px};
+`
