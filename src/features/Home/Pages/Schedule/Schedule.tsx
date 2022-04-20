@@ -21,6 +21,7 @@ import {
     ButtonContent,
     ModalTitle,
     ModalSubtitle,
+    ModalButtonContainer,
 } from './styles'
 import { i18n } from '@i18n'
 import { Button } from '@components/atoms/Button/Button'
@@ -215,16 +216,18 @@ export const Schedule: FC = () => {
                         <Modal
                             contentContainerStyle={{
                                 backgroundColor: theme.colors.black100,
-                                marginTop: 40,
-                                marginHorizontal: 10,
-                                padding: 30,
+                                alignContent: 'center',
+                                padding: 20,
                             }}
                             onDismiss={() => setShowModal(false)}
                             visible={showModal}
                         >
                             <ModalTitle>{i18n.t('title.cancelAttendance')}</ModalTitle>
                             <ModalSubtitle>{i18n.t('subtitle.youWishToCancelTheAttendance')}</ModalSubtitle>
-                            <ButtonContainer>
+                            <ModalButtonContainer>
+                                <ButtonContent>
+                                    <Button label={i18n.t('labels.no')} onPress={() => setShowModal(false)} variant={'tertiary'} />
+                                </ButtonContent>
                                 <ButtonContent>
                                     <Button
                                         label={i18n.t('labels.yes')}
@@ -232,10 +235,7 @@ export const Schedule: FC = () => {
                                         variant={'tertiary'}
                                     />
                                 </ButtonContent>
-                                <ButtonContent>
-                                    <Button label={i18n.t('labels.no')} onPress={() => setShowModal(false)} variant={'tertiary'} />
-                                </ButtonContent>
-                            </ButtonContainer>
+                            </ModalButtonContainer>
                         </Modal>
                     </Portal>
                 )}

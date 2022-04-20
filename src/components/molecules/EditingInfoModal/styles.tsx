@@ -5,6 +5,7 @@ export const ChangeName = styled.Text`
     color: ${theme.colors.white};
     padding: ${theme.marginsPx.m40px} 0;
     font-size: ${theme.fontSize.xxLarge};
+    align-self: center;
 `
 
 export const ModalHeader = styled.View`

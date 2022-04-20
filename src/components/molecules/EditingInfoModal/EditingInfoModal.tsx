@@ -9,7 +9,7 @@ import { TextInputMask } from 'react-native-masked-text'
 
 AntDesign.loadFont()
 
-export const EditingInfoModal: FC = ({
+export const EditingInfoModal = ({
     Title = '',
     setValue = (any: string) => null,
     value = '',
@@ -19,7 +19,7 @@ export const EditingInfoModal: FC = ({
     errorMessage = '',
     children = <></>,
     showPhoneMask = false,
-}) => {
+}: EditingInfoModalProps) => {
     const [showSnackBar, setShowSnackBar] = useState(false)
 
     return (
@@ -27,7 +27,7 @@ export const EditingInfoModal: FC = ({
             <Modal
                 contentContainerStyle={{
                     backgroundColor: theme.colors.black100,
-                    marginTop: 40,
+                    alignContent: 'center',
                     padding: 20,
                 }}
                 onDismiss={() => setVisible(false)}

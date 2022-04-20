@@ -61,8 +61,18 @@ export const LottieContainer = styled.View`
     flex: 1;
 `
 
+export const ModalButtonContainer = styled.View`
+    margin: ${theme.marginsPx.m20px} ${theme.marginsPx.m20px} ${theme.marginsPx.m4px};
+    flex-direction: row;
+`
+
 export const ButtonContainer = styled.View`
     margin: ${theme.marginsPx.m20px} ${theme.marginsPx.m40px} ${theme.marginsPx.m4px} ${theme.marginsPx.m40px};
+`
+
+export const ButtonContent = styled.View`
+    flex: 1;
+    margin: ${theme.marginsPx.m40px} ${theme.marginsPx.m20px} 0;
 `
 
 export const CardContent = styled.View`
@@ -114,11 +124,6 @@ export const Subtitle = styled.Text`
     font-family: ${theme.fonts.montserratRegular};
     font-size: ${theme.fontSize.xLarge};
     align-self: center;
-`
-
-export const ButtonContent = styled.View`
-    flex: 1;
-    margin: ${theme.marginsPx.m40px} ${theme.marginsPx.m20px};
 `
 
 export const ModalTitle = styled.Text`
