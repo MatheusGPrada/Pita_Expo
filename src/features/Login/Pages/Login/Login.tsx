@@ -71,6 +71,9 @@ export const Login: FC = () => {
     }
 
     const cleanError = () => {
+        if (error) {
+            onToggleSnackBar()
+        }
         setError('')
     }
 

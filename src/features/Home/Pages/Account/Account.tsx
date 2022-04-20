@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { ProfileHeader, ProfileContent, UserName, FullColor, ButtonContainer, ContentTitle, UserAvatar, UserLetter } from '../styles'
+import { ProfileHeader, ProfileContent, UserName, FullColor, ButtonContainer, Title } from '../styles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -58,10 +58,7 @@ export const Account = () => {
         <FullColor>
             <Provider>
                 <ProfileHeader>
-                    <UserAvatar>
-                        <UserLetter>{changeName.substr(0, 1).toUpperCase()}</UserLetter>
-                    </UserAvatar>
-                    <UserName>{changeName}</UserName>
+                    <Title>{i18n.t('title.account')}</Title>
                 </ProfileHeader>
                 {showChangeName && (
                     <EditingInfoModal
@@ -94,25 +91,24 @@ export const Account = () => {
                 )}
 
                 <ProfileContent>
-                    <ContentTitle>{i18n.t('title.changeProfileData')}</ContentTitle>
                     <ButtonContainer>
                         <Button
                             label={changeName}
                             onPress={() => setShowChangeName(true)}
-                            useButtonContainer={true}
-                            variant={'tertiary'}
+                            useButtonContainer={false}
+                            variant={'secondary'}
                         >
-                            <MaterialCommunityIcons color="black" name="account" size={36} />
+                            <MaterialCommunityIcons color="white" name="account" size={36} />
                         </Button>
                     </ButtonContainer>
                     <ButtonContainer>
                         <Button
                             label={changePhone}
                             onPress={() => setShowChangePhone(true)}
-                            useButtonContainer={true}
-                            variant={'tertiary'}
+                            useButtonContainer={false}
+                            variant={'secondary'}
                         >
-                            <MaterialCommunityIcons color="black" name="cellphone-basic" size={36} />
+                            <MaterialCommunityIcons color="white" name="cellphone-basic" size={36} />
                         </Button>
                     </ButtonContainer>
                 </ProfileContent>

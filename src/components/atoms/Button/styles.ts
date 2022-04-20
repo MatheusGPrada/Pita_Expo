@@ -6,9 +6,9 @@ import { theme } from '../../../styles/theme'
 export const Container = styled.TouchableHighlight<ButtonProps>`
     align-items: center;
     background-color: ${({ disabled, variant }) =>
-        disabled ? '#e2dede' : variant === 'primary' ? '#613dc1' : variant === 'secondary' ? 'white' : 'white'};
+        disabled ? '#e2dede' : variant === 'primary' ? '#613dc1' : variant === 'secondary' ? 'black' : 'white'};
     border-color: ${({ disabled, variant }) =>
-        disabled ? '#e2dede' : variant === 'primary' ? '#613dc1' : variant === 'secondary' ? 'white' : 'black'};
+        disabled ? '#e2dede' : variant === 'primary' ? '#613dc1' : variant === 'secondary' ? 'black' : 'black'};
     border-radius: ${BUTTON_STYLE.borderRadius};
     border-width: ${BUTTON_STYLE.borderWidth};
     flex-direction: row;
@@ -20,15 +20,14 @@ export const Container = styled.TouchableHighlight<ButtonProps>`
 
 export const Content = styled.View`
     flex-direction: row;
-    justify-content: ${({ variant }) => (variant !== 'tertiary' ? 'center' : 'flex-start')};
+    justify-content: ${({ variant }) => (variant === 'primary' ? 'center' : 'flex-start')};
     align-items: center;
-    ${({ variant }) => (variant !== 'tertiary' ? '' : 'flex: 1')};
-    ${({ variant }) => (variant !== 'tertiary' ? '' : 'paddingLeft: 16px')};
+    ${({ variant }) => (variant === 'primary' ? '' : 'flex: 1')};
+    ${({ variant }) => (variant === 'primary' ? '' : 'paddingLeft: 16px')};
 `
 
 export const Text = styled.Text<ButtonProps>`
-    color: ${({ disabled, variant }) =>
-        disabled ? '#887e7e' : variant === 'primary' ? 'white' : variant === 'secondary' ? '#613dc1' : 'black'};
+    color: ${({ disabled, variant }) => (disabled ? '#887e7e' : variant === 'primary' || variant === 'secondary' ? 'white' : 'black')};
     font-family: ${theme.fonts.montserratSemiBold};
     font-size: ${({ labelSize }) => (labelSize === 'medium' ? theme.fontSize.medium : theme.fontSize.large)};
     letter-spacing: ${BUTTON_STYLE.letterSpacing};

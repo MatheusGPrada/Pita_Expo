@@ -24,31 +24,12 @@ export const UserName = styled.Text`
 
 export const ProfileContent = styled.View`
     flex: 1;
-    margin-right: ${theme.marginsPx.m20px};
-    margin-top: ${theme.marginsPx.m100px};
+    margin-horizontal: ${theme.marginsPx.m12px};
+    margin-top: ${theme.marginsPx.m60px};
 `
 
 export const ButtonContainer = styled.View`
     margin-top: ${theme.marginsPx.m32px};
-`
-
-export const ContentTitle = styled.Text`
-    color: ${theme.colors.white};
-    font-family: ${theme.fonts.montserratSemiBold};
-    font-size: ${theme.fontSize.xLarge};
-    letter-spacing: ${theme.letterSpacing.ls08};
-    align-self: flex-start;
-    left: ${theme.marginsPx.m20px};
-`
-
-export const UserAvatar = styled.View`
-    background-color: #fff;
-    border-radius: 100px;
-`
-
-export const UserLetter = styled.Text`
-    padding: ${theme.marginsPx.m16px} ${theme.marginsPx.m20px};
-    font-size: ${theme.fontSize.xxLarge};
 `
 
 export const PasswordTitle = styled.Text`
@@ -62,4 +43,10 @@ export const HeaderContainer = styled.View`
     background-color: red;
     justify-content: center;
     align-items: center;
+`
+
+export const Title = styled.Text`
+    font-family: ${theme.fonts.montserratSemiBold};
+    font-size: ${theme.fontSize.xxLarge};
+    color: ${theme.colors.white};
 `

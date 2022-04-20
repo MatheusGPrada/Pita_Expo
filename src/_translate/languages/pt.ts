@@ -61,6 +61,7 @@ const messages = {
                 didntHaveAnAppointment: 'Você não possuí agendamento',
             },
             title: {
+                account: 'Conta',
                 cancelAttendance: 'Cancelar agendamento',
                 cellphone: 'Celular',
                 changeEmail: 'Qual o seu email para contato?',
