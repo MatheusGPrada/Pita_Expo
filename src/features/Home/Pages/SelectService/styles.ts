@@ -9,7 +9,7 @@ export const Title = styled.Text`
 `
 export const Content = styled.View`
     flex: 1;
-    padding: ${theme.marginsPx.m16px} ${theme.marginsPx.m20px};
+    padding: ${theme.marginsPx.m16px} ${theme.marginsPx.m8px} 0;
 `
 
 export const LoadingContainer = styled.View`
@@ -19,47 +19,42 @@ export const LoadingContainer = styled.View`
 `
 
 export const CardService = styled.View`
-    justify-content: center;
-    align-items: flex-start;
-    margin-left: ${theme.marginsPx.m16px};
-`
-
-export const IconContainer = styled.View`
-    align-self: center;
-    align-items: flex-end;
+    margin: 0 ${theme.marginsPx.m16px};
+    flex-direction: row;
     flex: 1;
+    justify-content: space-between;
+    align-items: center;
 `
 
 export const ButtonContainer = styled.View`
+    margin-horizontal: ${theme.marginsPx.m20px};
     margin-top: ${theme.marginsPx.m20px};
 `
 
-export const Card = styled.View`
-    flex-direction: row;
-    background-color: ${({ status }) => (status ? `#e3d0d8` : `#758bfd`)};
-    border-radius: 30px;
-    margin-horizontal: ${theme.marginsPx.m16px};
+export const Card = styled.View<CardProps>`
+    background-color: ${({ isSelected }) => (isSelected ? `#758bfd` : theme.colors.grayscale40)};
+    border-radius: 20px;
     margin-top: ${theme.marginsPx.m20px};
-    padding: ${theme.marginsPx.m20px};
-    align-items: flex-start;
+    padding: ${theme.marginsPx.m20px} 0;
 `
 
-export const CardInfo = styled.View`
-    flex-direction: row;
-`
-
-export const ServiceTitle = styled.Text`
-    color: ${theme.colors.black100};
-    font-family: ${theme.fonts.montserratSemiBold};
-    font-size: ${theme.fontSize.large};
-    text-align: center;
-`
-
-export const ServiceInfo = styled.Text`
-    margin-top: ${theme.marginsPx.m12px};
+export const ServiceName = styled.Text`
     color: ${theme.colors.black100};
     font-family: ${theme.fonts.montserratSemiBold};
     font-size: ${theme.fontSize.medium};
     text-align: center;
-    margin-right: ${theme.marginsPx.m8px};
+`
+
+export const ServiceNameContainer = styled.View`
+    min-width: 150px;
+    background-color: ${theme.colors.white};
+    padding: ${theme.marginsPx.m4px};
+    border-radius: 20px;
+`
+
+export const ServiceInfo = styled.Text`
+    color: ${theme.colors.white};
+    font-family: ${theme.fonts.montserratSemiBold};
+    font-size: ${theme.fontSize.medium};
+    text-align: center;
 `

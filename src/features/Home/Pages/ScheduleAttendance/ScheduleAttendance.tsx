@@ -7,7 +7,7 @@ import { Attendance, Service } from '../Schedule/typings'
 import DateTimePicker from '@react-native-community/datetimepicker'
 import { ButtonContent, ContentContainer, ModalSubtitle, ModalTitle, Time, TimeContainer } from './styles'
 import { Loading } from '@components/atoms/Loading/Loading'
-import { ButtonContainer, LoadingContainer } from '../Schedule/styles'
+import { LoadingContainer, ModalButtonContainer } from '../Schedule/styles'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { SumHour } from '@features/Home/Utils/utils'
 import { Modal, Portal, Provider } from 'react-native-paper'
@@ -302,7 +302,7 @@ export const ScheduleAttendance: FC = () => {
                         <Modal
                             contentContainerStyle={{
                                 backgroundColor: theme.colors.black100,
-                                marginTop: 40,
+                                alignContent: 'center',
                                 padding: 20,
                             }}
                             onDismiss={() => setShowModal(false)}
@@ -310,14 +310,14 @@ export const ScheduleAttendance: FC = () => {
                         >
                             <ModalTitle>{i18n.t('title.createAttendance')}</ModalTitle>
                             <ModalSubtitle>{i18n.t('subtitle.youWishToCreateTheAttendance')}</ModalSubtitle>
-                            <ButtonContainer>
-                                <ButtonContent>
-                                    <Button label={i18n.t('labels.yes')} onPress={() => createAttendance()} variant={'tertiary'} />
-                                </ButtonContent>
+                            <ModalButtonContainer>
                                 <ButtonContent>
                                     <Button label={i18n.t('labels.no')} onPress={() => setShowModal(false)} variant={'tertiary'} />
                                 </ButtonContent>
-                            </ButtonContainer>
+                                <ButtonContent>
+                                    <Button label={i18n.t('labels.yes')} onPress={() => createAttendance()} variant={'tertiary'} />
+                                </ButtonContent>
+                            </ModalButtonContainer>
                         </Modal>
                     </Portal>
                 )}

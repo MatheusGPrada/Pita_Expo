@@ -3,15 +3,14 @@ import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/nativ
 import { DarkTemplate } from '@components/templates/DarkTemplate/DarkTemplate'
 import {
     Card,
-    CardInfo,
-    IconContainer,
     Content,
     LoadingContainer,
     ServiceInfo,
-    ServiceTitle,
     Title,
     CardService,
     ButtonContainer,
+    ServiceName,
+    ServiceNameContainer,
 } from './styles'
 import { i18n } from '@i18n'
 import api from 'src/api/api'
@@ -19,10 +18,7 @@ import { Loading } from '@components/atoms/Loading/Loading'
 import { ALL_SERVICES } from 'src/api/endpoints'
 import { ScrollView } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import AntDesign from 'react-native-vector-icons/AntDesign'
 import { Button } from '@components/atoms/Button/Button'
-
-AntDesign.loadFont()
 
 export const SelectService: FC = () => {
     const [loading, setLoading] = useState(true)
@@ -91,17 +87,14 @@ export const SelectService: FC = () => {
                     <ScrollView>
                         {services.map(({ id, nomeServico, precoServico, tempoServico }) => (
                             <TouchableOpacity key={id} onPress={() => selectService(id, nomeServico, tempoServico)}>
-                                <Card>
+                                <Card isSelected={isSelected(id)}>
                                     <CardService>
-                                        <ServiceTitle>{nomeServico}</ServiceTitle>
-                                        <CardInfo>
-                                            <ServiceInfo>{`R$ ${precoServico},00`}</ServiceInfo>
-                                            <ServiceInfo>{tempoServico}</ServiceInfo>
-                                        </CardInfo>
+                                        <ServiceNameContainer>
+                                            <ServiceName>{nomeServico}</ServiceName>
+                                        </ServiceNameContainer>
+                                        <ServiceInfo>{`R$${precoServico},00`}</ServiceInfo>
+                                        <ServiceInfo>{tempoServico}</ServiceInfo>
                                     </CardService>
-                                    <IconContainer>
-                                        {isSelected(id) && <AntDesign color="black" name="check" size={30} />}
-                                    </IconContainer>
                                 </Card>
                             </TouchableOpacity>
                         ))}
@@ -109,6 +102,7 @@ export const SelectService: FC = () => {
                 )}
                 <ButtonContainer>
                     <Button
+                        disabled={selectedServices.length === 0}
                         label={i18n.t('buttonLabels.selectTime')}
                         onPress={() =>
                             navigate('ScheduleAttendance', { services: selectedServices, token: token, userName: userName })

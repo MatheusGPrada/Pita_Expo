@@ -18,7 +18,7 @@ export const HomeStack = ({ route: { params } }) => (
     <Navigator
         initialRouteName={HOME}
         screenOptions={{
-            headerBackImage: () => <AntDesign color="white" name="arrowleft" size={40} />,
+            headerBackImage: () => <AntDesign color="white" name="arrowleft" size={30} />,
             headerBackTitleVisible: false,
             headerStyle: {
                 backgroundColor: 'black',
