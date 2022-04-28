@@ -29,7 +29,7 @@ export const Home: FC = () => {
         <>
             <StatusBar barStyle="light-content" />
             <BottomNavigation
-                barStyle={{ backgroundColor: 'black', height: 70 }}
+                barStyle={{ backgroundColor: 'black', height: '7.5%' }}
                 labeled={false}
                 navigationState={{ index, routes }}
                 onIndexChange={setIndex}

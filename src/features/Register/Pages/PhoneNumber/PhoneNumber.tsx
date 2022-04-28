@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ContentContainer, HeaderContent, Subtitle, InputText, SnackBarContainer, Title } from './styles'
+import { ContentContainer, Subtitle, InputText, SnackBarContainer, Title } from './styles'
 import { TextInput } from 'react-native-paper'
 import { SnackBar } from '@components/atoms/SnackBar/SnackBar'
 import { i18n } from '@i18n'
@@ -8,6 +8,7 @@ import { TextInputMask } from 'react-native-masked-text'
 import { isValidPhoneNumber, savePhoneNumberInCache } from '@features/Register/Utils/utils'
 import { StepsProps } from '../typings'
 import { getAllData } from '@utils/asyncStorage'
+import { HeaderContent } from '../styles'
 
 export const PhoneNumber = ({ setDisabled }: StepsProps) => {
     const [showSnackBar, setShowSnackBar] = useState(false)

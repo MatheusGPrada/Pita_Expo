@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { ProfileHeader, ProfileContent, UserName, FullColor, ButtonContainer, Title } from '../styles'
+import { ProfileHeader, ProfileContent, UserName, FullColor, ButtonContainer, Title, LogOutButtonContainer } from '../styles'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -113,7 +113,14 @@ export const Account = () => {
                     </ButtonContainer>
                 </ProfileContent>
 
-                <Button label={i18n.t('buttonLabels.logout')} labelSize="large" onPress={() => doLogOut()} useButtonContainer={true} />
+                <LogOutButtonContainer>
+                    <Button
+                        label={i18n.t('buttonLabels.logout')}
+                        labelSize="large"
+                        onPress={() => doLogOut()}
+                        useButtonContainer={true}
+                    />
+                </LogOutButtonContainer>
             </Provider>
         </FullColor>
     )

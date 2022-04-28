@@ -9,7 +9,7 @@ export const FullColor = styled.View`
 export const ProfileHeader = styled.View`
     align-self: flex-start;
     flex-direction: row;
-    margin-top: ${theme.marginsPx.m100px};
+    margin-top: 25%;
     margin-left: ${theme.marginsPx.m16px};
 `
 
@@ -30,6 +30,10 @@ export const ProfileContent = styled.View`
 
 export const ButtonContainer = styled.View`
     margin-top: ${theme.marginsPx.m32px};
+`
+
+export const LogOutButtonContainer = styled.View`
+    margin: ${theme.marginsPx.m20px} ${theme.marginsPx.m40px} ${theme.marginsPx.m4px} ${theme.marginsPx.m40px};
 `
 
 export const PasswordTitle = styled.Text`

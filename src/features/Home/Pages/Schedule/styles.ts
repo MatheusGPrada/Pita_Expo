@@ -95,7 +95,7 @@ export const Image = styled.Image`
 `
 
 export const ScheduleContent = styled.View`
-    margin: ${theme.marginsPx.m16px} 0;
+    margin-top: ${theme.marginsPx.m16px};
     flex: 1;
     justify-content: center;
 `

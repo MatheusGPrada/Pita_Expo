@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { InputContainer, ContentContainer, HeaderContent, Title, Subtitle, InputText } from './styles'
+import { InputContainer, ContentContainer, Title, Subtitle, InputText } from './styles'
 import { TextInput } from 'react-native-paper'
 import { TextInputMask } from 'react-native-masked-text'
 import { isValidCPF } from '@brazilian-utils/brazilian-utils'
@@ -10,6 +10,7 @@ import { theme } from '@theme'
 import { saveNameInCache, saveCPFInCache, saveBirthDateInCache } from '@features/Register/Utils/utils'
 import { StepsProps } from '../typings'
 import { getAllData } from '@utils/asyncStorage'
+import { HeaderContent } from '../styles'
 
 export const UserInfo = ({ setDisabled }: StepsProps) => {
     const [name, setName] = useState('')

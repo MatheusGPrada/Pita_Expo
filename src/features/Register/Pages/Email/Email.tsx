@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ContentContainer, HeaderContent, Subtitle, InputText, SnackBarContainer, Title } from './styles'
+import { ContentContainer, Subtitle, InputText, SnackBarContainer, Title } from './styles'
 import { TextInput } from 'react-native-paper'
 import { SnackBar } from '@components/atoms/SnackBar/SnackBar'
 import { i18n } from '@i18n'
@@ -7,6 +7,7 @@ import { theme } from '@theme'
 import { isValidEmail, saveEmailInCache } from '@features/Register/Utils/utils'
 import { StepsProps } from '../typings'
 import { getAllData } from '@utils/asyncStorage'
+import { HeaderContent } from '../styles'
 
 export const Email = ({ setDisabled }: StepsProps) => {
     const [showSnackBar, setShowSnackBar] = useState(false)
@@ -52,11 +53,7 @@ export const Email = ({ setDisabled }: StepsProps) => {
                     value={email}
                 />
             </ContentContainer>
-            <SnackBarContainer>
-                {showSnackBar && (
-                    <SnackBar backgroundColor={theme.colors.danger50} message={error} setShowSnackBar={setShowSnackBar} />
-                )}
-            </SnackBarContainer>
+            {showSnackBar && <SnackBar backgroundColor={theme.colors.danger50} message={error} setShowSnackBar={setShowSnackBar} />}
         </>
     )
 }

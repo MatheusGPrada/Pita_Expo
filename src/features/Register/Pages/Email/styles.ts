@@ -1,10 +1,6 @@
 import { theme } from '../../../../../src/styles/theme'
 import styled from 'styled-components/native'
 
-export const HeaderContent = styled.View`
-    margin: ${theme.marginsPx.m40px} ${theme.marginsPx.m32px};
-`
-
 export const Title = styled.Text`
     color: ${theme.colors.white};
     font-family: ${theme.fonts.montserratRegular};
@@ -33,11 +29,11 @@ export const InputText = styled.Text`
 
 export const ContentContainer = styled.View`
     flex: 1;
-    margin: ${theme.marginsPx.m60px} ${theme.marginsPx.m40px} ${theme.marginsPx.m100px};
+    margin: ${theme.marginsPx.m60px} ${theme.marginsPx.m40px} ${theme.marginsPx.m60px};
 `
 
 export const SnackBarContainer = styled.View`
     flex: 1;
     background-color: red;
-    margin-top: ${theme.marginsPx.m100px};
+    margin-top: ${theme.marginsPx.m12px};
 `

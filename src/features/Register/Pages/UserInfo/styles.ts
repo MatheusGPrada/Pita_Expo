@@ -1,10 +1,6 @@
 import { theme } from '@theme'
 import styled from 'styled-components/native'
 
-export const HeaderContent = styled.View`
-    margin: ${theme.marginsPx.m40px} ${theme.marginsPx.m32px};
-`
-
 export const Title = styled.Text`
     color: ${theme.colors.white};
     font-family: ${theme.fonts.montserratRegular};
@@ -17,7 +13,7 @@ export const Title = styled.Text`
 export const Subtitle = styled.Text`
     color: ${theme.colors.white};
     font-family: ${theme.fonts.montserratRegular};
-    font-size: ${theme.fontSize.large};
+    font-size: ${theme.fontSize.xLarge};
     font-style: normal;
     font-weight: 300;
 `
@@ -32,7 +28,7 @@ export const InputText = styled.Text`
 `
 
 export const InputContainer = styled.View`
-    margin: ${theme.marginsPx.m20px} ${theme.marginsPx.m40px} ${theme.marginsPx.m100px};
+    margin: ${theme.marginsPx.m20px} ${theme.marginsPx.m40px} 15%;
 `
 
 export const ContentContainer = styled.View`

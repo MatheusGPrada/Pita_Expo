@@ -68,6 +68,7 @@ export const Schedule: FC = () => {
     useEffect(
         useCallback(() => {
             const getAttendance = async () => {
+                // TO DO - ADD THE !ADMIN VALIDATION
                 if (userId !== 2) {
                     await api
                         .get(`${USER_ATTENDANCE}${userId}`, {

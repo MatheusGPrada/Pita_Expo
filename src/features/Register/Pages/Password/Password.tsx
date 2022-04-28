@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { ContentContainer, HeaderContent, Subtitle, InputText, SnackBarContainer, Title } from './styles'
+import { ContentContainer, Subtitle, InputText, SnackBarContainer, Title } from './styles'
 import { TextInput } from 'react-native-paper'
 import { SnackBar } from '@components/atoms/SnackBar/SnackBar'
 import { i18n } from '@i18n'
 import { theme } from '@theme'
 import { isValidPassword, savePasswordInCache } from '@features/Register/Utils/utils'
 import { getAllData } from '@utils/asyncStorage'
+import { HeaderContent } from '../styles'
 
 export const Password = () => {
     const [visible, setVisible] = useState(false)
