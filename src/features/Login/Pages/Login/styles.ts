@@ -1,5 +1,10 @@
+import { Dimensions } from 'react-native'
 import styled from 'styled-components/native'
 import { theme } from '../../../../styles/theme'
+
+const { width, height } = Dimensions.get('window')
+const imageHeight = `${height * 0.2}px`
+const imageWidth = `${width * 0.2}px`
 
 export const Image = styled.Image`
     align-self: center;
@@ -10,6 +15,8 @@ export const Image = styled.Image`
 `
 export const ImageContainer = styled.View`
     align-self: center;
+    width: ${imageWidth};
+    height: ${imageHeight};
     max-width: 280px;
     max-height: 280px;
     margin-bottom: ${theme.marginsPx.m20px};
