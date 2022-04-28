@@ -11,26 +11,40 @@ import { saveNameInCache, saveCPFInCache, saveBirthDateInCache } from '@features
 import { StepsProps } from '../typings'
 import { getAllData } from '@utils/asyncStorage'
 import { HeaderContent } from '../styles'
+import DateTimePicker from '@react-native-community/datetimepicker'
 
 export const UserInfo = ({ setDisabled }: StepsProps) => {
     const [name, setName] = useState('')
     const [cpf, setCpf] = useState('')
-    const [birthDate, setBirthDate] = useState('')
+    const [birthDate, setBirthDate] = useState(new Date())
+    const [stringBirthDate, setStringBirthDate] = useState('')
 
     const [showSnackBar, setShowSnackBar] = useState(false)
     const [snackBarMessageError, setSnackBarMessageError] = useState('')
     const onToggleSnackBar = () => setShowSnackBar(true)
 
-    const checkInfoIsValid = () => {
-        if (!isEmpty(name) && !isEmpty(cpf) && isValidCPF(cpf) && validDate(birthDate)) {
+    const checkInfoIsValid = (birthDate?: string) => {
+        if (!isEmpty(name) && !isEmpty(cpf) && isValidCPF(cpf) && validDate(birthDate ? birthDate : stringBirthDate)) {
             setDisabled(false)
         }
+    }
+
+    const onChangeDate = async (event: object, selectedDate: Date) => {
+        setBirthDate(selectedDate)
+        const stringDate = selectedDate.toISOString().split('T')[0].split('-')
+        const year = stringDate[0]
+        const month = stringDate[1]
+        const day = stringDate[2]
+        const date = day.concat('/', month, '/', year)
+        setStringBirthDate(date)
+        await saveBirthDateInCache(selectedDate)
+        checkInfoIsValid(date)
     }
 
     useEffect(() => {
         const getCache = async () => {
             const { BirthDate, CPF, Name } = await getAllData()
-            BirthDate ? setBirthDate(BirthDate) : null
+            BirthDate ? setBirthDate(new Date(BirthDate)) : null
             CPF ? setCpf(CPF) : null
             Name ? setName(Name) : null
             checkInfoIsValid()
@@ -82,31 +96,15 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
                         value={cpf}
                     />
                     <InputText>{i18n.t('labels.birthDate')}</InputText>
-                    <TextInput
-                        onBlur={async () => {
-                            if (validDate(birthDate)) {
-                                await saveBirthDateInCache(birthDate)
-                                checkInfoIsValid()
-                                return
-                            }
-                            setDisabled(true)
-                            setSnackBarMessageError(i18n.t('error.invalidDate'))
-                            onToggleSnackBar()
-                        }}
-                        onChangeText={setBirthDate}
-                        render={props => (
-                            <TextInputMask
-                                {...props}
-                                keyboardType="numeric"
-                                options={{
-                                    format: 'DD/MM/YYYY',
-                                }}
-                                type={'datetime'}
-                            />
-                        )}
-                        style={{ backgroundColor: 'white', height: 45, marginBottom: 20 }}
-                        theme={{ colors: { primary: 'black' } }}
+                    <DateTimePicker
+                        display="default"
+                        maximumDate={new Date()}
+                        minimumDate={new Date(1950, 0, 1)}
+                        mode={'date'}
+                        onChange={onChangeDate}
+                        themeVariant={'light'}
                         value={birthDate}
+                        style={{ marginRight: '59%', marginTop: '2%', backgroundColor: 'white' }}
                     />
                 </InputContainer>
             </ContentContainer>

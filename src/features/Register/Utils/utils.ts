@@ -15,7 +15,7 @@ export const saveCPFInCache = async (cpf: string) => {
 }
 
 // BIRTHDATE
-export const saveBirthDateInCache = async (birthDate: string) => {
+export const saveBirthDateInCache = async (birthDate: Date) => {
     await storeData(cacheVars.birthDate, birthDate)
 }
 
@@ -66,9 +66,10 @@ export const registerUser = async () => {
 
     const { BirthDate, CPF, Name, Email, PhoneNumber, Password } = await getAllData()
 
+    const date = new Date(BirthDate).toISOString().split('T')[0].split('-')
     const userInfo = {
         cpf: CPF.replaceAll('.', '').replaceAll('-', ''),
-        dataNascimento: BirthDate,
+        dataNascimento: `${date[2]}/${date[1]}/${date[0]}`,
         nome: Name,
         senha: Password,
         telefone: PhoneNumber,

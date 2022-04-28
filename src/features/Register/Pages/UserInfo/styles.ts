@@ -28,7 +28,7 @@ export const InputText = styled.Text`
 `
 
 export const InputContainer = styled.View`
-    margin: ${theme.marginsPx.m20px} ${theme.marginsPx.m40px} 15%;
+    margin: ${theme.marginsPx.m8px} ${theme.marginsPx.m40px} 15%;
 `
 
 export const ContentContainer = styled.View`
