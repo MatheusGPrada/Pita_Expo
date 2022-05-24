@@ -20,12 +20,10 @@ export const saveBirthDateInCache = async (birthDate: Date) => {
 }
 
 // PHONE
-export const isValidPhoneNumber = async (phoneNumber: string, setDisabled: Function) => {
+export const isValidPhoneNumber = async (phoneNumber: string) => {
     if (phoneNumber && phoneNumber.length === 15) {
-        await setDisabled(false)
         return true
     }
-    await setDisabled(true)
     return false
 }
 
@@ -34,12 +32,10 @@ export const savePhoneNumberInCache = async (phoneNumber: string) => {
 }
 
 // EMAIL
-export const isValidEmail = async (email: string, setDisabled: Function) => {
+export const isValidEmail = async (email: string) => {
     if (validEmailRegex.test(email)) {
-        await setDisabled(false)
         return true
     }
-    await setDisabled(true)
     return false
 }
 

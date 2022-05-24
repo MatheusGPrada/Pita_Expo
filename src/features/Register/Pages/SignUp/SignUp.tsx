@@ -1,11 +1,9 @@
 import { DarkTemplate } from '@components/templates/DarkTemplate/DarkTemplate'
 import React, { useState, FC } from 'react'
-import { PhoneNumber } from '../PhoneNumber/PhoneNumber'
 import { UserInfo } from '../UserInfo/UserInfo'
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps'
 import { i18n } from '@i18n'
 import { theme } from '@theme'
-import { Email } from '../Email/Email'
 import { isValidPassword, registerUser } from '@features/Register/Utils/utils'
 import { Password } from '../Password/Password'
 import { useNavigation } from '@react-navigation/native'
@@ -13,6 +11,7 @@ import { SnackBar } from '@components/atoms/SnackBar/SnackBar'
 import { LoadingContainer, SnackBarContainer } from './styles'
 import { Loading } from '@components/atoms/Loading/Loading'
 import { cacheVars, getData } from '@utils/asyncStorage'
+import { Contact } from '../Contact/Contact'
 
 export const SignUp: FC = () => {
     const [disabled, setDisabled] = useState(true)
@@ -55,7 +54,7 @@ export const SignUp: FC = () => {
                     <UserInfo setDisabled={setDisabled} />
                 </ProgressStep>
                 <ProgressStep
-                    label={i18n.t('steps.phoneNumber')}
+                    label={i18n.t('steps.contact')}
                     nextBtnDisabled={disabled}
                     nextBtnStyle={buttonStyle}
                     nextBtnText={i18n.t('buttonLabels.next')}
@@ -64,20 +63,7 @@ export const SignUp: FC = () => {
                     previousBtnText={i18n.t('buttonLabels.back')}
                     previousBtnTextStyle={buttonTextStyle}
                 >
-                    <PhoneNumber setDisabled={setDisabled} />
-                </ProgressStep>
-                <ProgressStep
-                    finishBtnText={i18n.t('buttonLabels.finish')}
-                    label={i18n.t('steps.email')}
-                    nextBtnDisabled={disabled}
-                    nextBtnStyle={buttonStyle}
-                    nextBtnText={i18n.t('buttonLabels.next')}
-                    nextBtnTextStyle={buttonTextStyle}
-                    previousBtnStyle={buttonStyle}
-                    previousBtnText={i18n.t('buttonLabels.back')}
-                    previousBtnTextStyle={buttonTextStyle}
-                >
-                    <Email setDisabled={setDisabled} />
+                    <Contact setDisabled={setDisabled} />
                 </ProgressStep>
                 <ProgressStep
                     finishBtnText={i18n.t('buttonLabels.finish')}

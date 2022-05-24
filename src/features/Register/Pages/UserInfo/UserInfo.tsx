@@ -17,37 +17,46 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
     const [name, setName] = useState('')
     const [cpf, setCpf] = useState('')
     const [birthDate, setBirthDate] = useState(new Date())
-    const [stringBirthDate, setStringBirthDate] = useState('')
+    let userBithdate = new Date()
 
     const [showSnackBar, setShowSnackBar] = useState(false)
     const [snackBarMessageError, setSnackBarMessageError] = useState('')
     const onToggleSnackBar = () => setShowSnackBar(true)
 
-    const checkInfoIsValid = (birthDate?: string) => {
-        if (!isEmpty(name) && !isEmpty(cpf) && isValidCPF(cpf) && validDate(birthDate ? birthDate : stringBirthDate)) {
+    const checkInfoIsValid = (userCpf?: string, userName?: string) => {
+        if (
+            !isEmpty(userName ? userName : name) &&
+            !isEmpty(userCpf ? userCpf : cpf) &&
+            isValidCPF(userCpf ? userCpf : cpf) &&
+            validDate(userBithdate)
+        ) {
             setDisabled(false)
         }
     }
 
-    const onChangeDate = async (event: object, selectedDate: Date) => {
+    const onChangeDate = async (selectedDate: Date) => {
         setBirthDate(selectedDate)
-        const stringDate = selectedDate.toISOString().split('T')[0].split('-')
-        const year = stringDate[0]
-        const month = stringDate[1]
-        const day = stringDate[2]
-        const date = day.concat('/', month, '/', year)
-        setStringBirthDate(date)
+        userBithdate = selectedDate
         await saveBirthDateInCache(selectedDate)
-        checkInfoIsValid(date)
+    }
+
+    const onChangeName = async () => {
+        await saveNameInCache(name)
+        checkInfoIsValid()
+    }
+
+    const onChangeCPF = async () => {
+        await saveCPFInCache(cpf)
+        checkInfoIsValid()
     }
 
     useEffect(() => {
         const getCache = async () => {
             const { BirthDate, CPF, Name } = await getAllData()
-            BirthDate ? setBirthDate(new Date(BirthDate)) : null
-            CPF ? setCpf(CPF) : null
-            Name ? setName(Name) : null
-            checkInfoIsValid()
+            setName(Name)
+            setCpf(CPF)
+            setBirthDate(BirthDate ? new Date(BirthDate) : new Date())
+            checkInfoIsValid(CPF, Name)
         }
         getCache()
     }, [])
@@ -64,8 +73,7 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
                     <TextInput
                         onBlur={async () => {
                             if (!isEmpty(name)) {
-                                await saveNameInCache(name)
-                                checkInfoIsValid()
+                                onChangeName()
                                 return
                             }
                             setDisabled(true)
@@ -81,8 +89,7 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
                     <TextInput
                         onBlur={async () => {
                             if (!isEmpty(cpf) && isValidCPF(cpf)) {
-                                await saveCPFInCache(cpf)
-                                checkInfoIsValid()
+                                onChangeCPF()
                                 return
                             }
                             setDisabled(true)
@@ -101,10 +108,13 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
                         maximumDate={new Date()}
                         minimumDate={new Date(1950, 0, 1)}
                         mode={'date'}
-                        onChange={onChangeDate}
+                        onChange={async (event, value) => {
+                            await onChangeDate(value)
+                            checkInfoIsValid()
+                        }}
                         themeVariant={'light'}
                         value={birthDate}
-                        style={{ marginRight: '59%', marginTop: '2%', backgroundColor: 'white' }}
+                        style={{ backgroundColor: 'white', height: 45, width: 80 }}
                     />
                 </InputContainer>
             </ContentContainer>
