@@ -36,6 +36,7 @@ import { Modal, Portal, Provider } from 'react-native-paper'
 import { theme } from '@theme'
 import LottieView from 'lottie-react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
+import { getTimeZoneDate } from '@utils/date'
 
 export const Schedule: FC = () => {
     const { params } = useRoute()
@@ -141,20 +142,22 @@ export const Schedule: FC = () => {
                                     attendances
                                         .sort((a: string, b: string) => sortAttendances(a, b))
                                         .map(({ dataAgendamento, horario, servico, idAgendamento }: Attendance, index: number) => {
-                                            const formatedDate = new Date(
-                                                dataAgendamento
-                                                    .split('T')[0]
-                                                    .concat(
+                                            const date = dataAgendamento.split('/')
+                                            const formatedDate = getTimeZoneDate(
+                                                new Date(
+                                                    date[2].concat(
+                                                        '-',
+                                                        date[0],
+                                                        '-',
+                                                        date[1],
                                                         'T',
-                                                        (parseInt(horario.substr(6, 2)) - 3).toString().length === 1
-                                                            ? `0${(parseInt(horario.substr(6, 2)) - 3).toString()}`
-                                                            : (parseInt(horario.substr(6, 2)) - 3).toString(),
+                                                        horario.substr(0, 2),
                                                         ':',
-                                                        horario.substr(9, 2),
-                                                        ':',
-                                                        '00',
+                                                        horario.substr(3, 2),
                                                     ),
+                                                ),
                                             )
+
                                             const attendanceIsAvailable = isBefore(getActualDate(), formatedDate)
 
                                             return (

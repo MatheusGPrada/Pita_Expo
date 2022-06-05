@@ -1,4 +1,5 @@
 const m1 = 1
+const m2 = 2
 const SPACER = 4
 const m8 = 2 * SPACER
 const m12 = 3 * SPACER
@@ -13,4 +14,4 @@ const m48 = 12 * SPACER
 const m60 = 15 * SPACER
 const m100 = 25 * SPACER
 
-export { SPACER, m8, m1, m100, m12, m16, m20, m24, m28, m32, m36, m40, m48, m60 }
+export { SPACER, m8, m1, m2, m100, m12, m16, m20, m24, m28, m32, m36, m40, m48, m60 }

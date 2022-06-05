@@ -16,3 +16,9 @@ export interface Service {
     time: string
     title: string
 }
+
+export interface ScheduleCards {
+    enable: boolean
+    key: number
+    time: string
+}

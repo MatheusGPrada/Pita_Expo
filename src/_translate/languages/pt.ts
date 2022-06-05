@@ -7,7 +7,7 @@ const messages = {
                 addSchedule: 'Agendar',
                 back: 'Voltar',
                 changePassword: 'Senha',
-                doSchedule: 'Realizar agendamento',
+                doSchedule: 'Criar agendamento',
                 email: 'Email',
                 finish: 'Finalizar',
                 login: 'Entrar',
@@ -26,6 +26,7 @@ const messages = {
                 invalidPhoneNumber: 'Número de Celular inválido',
                 invalidUserOrPassword: 'Usuário ou senha inválidos',
                 userAlreadyExist: 'Já existe um usuário com o CPF ou E-mail informado',
+                invalidTime: 'Horário inválido',
             },
             labels: {
                 OK: 'OK',
@@ -42,6 +43,8 @@ const messages = {
                 register: 'Cadastrar',
                 user: 'Usuário',
                 yes: 'sim',
+                initialDefaultTime: '10:00',
+                endDefaultTime: '18:00',
             },
             steps: {
                 contact: 'Contato',
@@ -57,6 +60,8 @@ const messages = {
                 youWishToCancelTheAttendance: 'Deseja mesmo cancelar o agendamento?',
                 youWishToCreateTheAttendance: 'Deseja criar o agendamento?',
                 didntHaveAnAppointment: 'Você não possuí agendamento',
+                allIsAvailable: 'Todos os horário estão disponíveis para está data!',
+                selectYourScheduleTime: 'Selecione o seu horário:',
             },
             title: {
                 account: 'Conta',
@@ -72,6 +77,8 @@ const messages = {
                 password: 'Senha',
                 schedule: 'Nenhum agendamento',
                 scheduleds: 'Agendados',
+                selectTheDateAndHour: 'Selecione a data do agendamento:',
+                selectTheTime: 'Selecione um horário disponível:',
                 selectServices: 'Selecione o(s) serviço(s)',
                 selectTheAttendanceDate: 'Selecione o dia para agendar o agendamento',
                 welcome: 'Bem vindo',

@@ -1,3 +1,5 @@
+import { getTimeZoneDate } from '@utils/date'
+
 const pad = (value: number) => (value < 10 ? `0${value}` : value)
 const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
 const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
@@ -31,6 +33,15 @@ export const getActualDate = () => {
     )
 }
 
-export const sortAttendances = (a: Object, b: Object) =>
-    new Date(b.dataAgendamento.split('T')[0].concat('T', a.horario.substr(0, 2), ':', a.horario.substr(3, 2), ':', '00')) -
-    new Date(a.dataAgendamento.split('T')[0].concat('T', a.horario.substr(0, 2), ':', a.horario.substr(3, 2), ':', '00'))
+export const sortAttendances = (a: Object, b: Object) => {
+    const dateA = a.dataAgendamento.split('/')
+    const dateB = b.dataAgendamento.split('/')
+    const formatedDateA = getTimeZoneDate(
+        new Date(dateA[2].concat('-', dateA[0], '-', dateA[1], 'T', a.horario.substr(0, 2), ':', a.horario.substr(3, 2))),
+    )
+    const formatedDateB = getTimeZoneDate(
+        new Date(dateB[2].concat('-', dateB[0], '-', dateB[1], 'T', b.horario.substr(0, 2), ':', b.horario.substr(3, 2))),
+    )
+
+    return formatedDateA - formatedDateB
+}

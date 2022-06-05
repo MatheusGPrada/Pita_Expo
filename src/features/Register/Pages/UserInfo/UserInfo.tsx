@@ -11,7 +11,7 @@ import { saveNameInCache, saveCPFInCache, saveBirthDateInCache } from '@features
 import { StepsProps } from '../typings'
 import { getAllData } from '@utils/asyncStorage'
 import { HeaderContent } from '../styles'
-import DateTimePicker from '@react-native-community/datetimepicker'
+import DatePicker from 'react-native-datepicker'
 
 export const UserInfo = ({ setDisabled }: StepsProps) => {
     const [name, setName] = useState('')
@@ -103,18 +103,36 @@ export const UserInfo = ({ setDisabled }: StepsProps) => {
                         value={cpf}
                     />
                     <InputText>{i18n.t('labels.birthDate')}</InputText>
-                    <DateTimePicker
-                        display="default"
-                        maximumDate={new Date()}
-                        minimumDate={new Date(1950, 0, 1)}
-                        mode={'date'}
-                        onChange={async (event, value) => {
-                            await onChangeDate(value)
+                    <DatePicker
+                        style={{ width: 200, marginTop: 10 }}
+                        date={birthDate}
+                        mode="date"
+                        format="DD/MM/YYYY"
+                        maxDate={new Date()}
+                        confirmBtnText="Confirmar"
+                        cancelBtnText="Cancelar"
+                        customStyles={{
+                            btnTextCancel: {
+                                color: 'black',
+                            },
+                            btnTextConfirm: {
+                                color: 'black',
+                            },
+                            dateIcon: {
+                                display: 'none',
+                            },
+                            dateInput: {
+                                backgroundColor: 'white',
+                                marginLeft: 36,
+                            },
+                            dateText: {
+                                fontSize: 18,
+                            },
+                        }}
+                        onDateChange={async (str, date) => {
+                            await onChangeDate(date)
                             checkInfoIsValid()
                         }}
-                        themeVariant={'light'}
-                        value={birthDate}
-                        style={{ backgroundColor: 'white', height: 45, width: 80 }}
                     />
                 </InputContainer>
             </ContentContainer>
